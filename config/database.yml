@@ -7,18 +7,18 @@ default: &default
 
 development:
   <<: *default
-  database: blog-app-new_development
+  database: blog-app-new-_development
   user: postgres
   password: ismail
 
 test:
   <<: *default
-  database: blog-app-new_test
+  database: blog-app-new-_test
   user: postgres
   password: ismail
 
 production:
   <<: *default
-  database: blog-app-new_production
+  database: blog-app-new-_production
   username: blog-app
   password: <%= ENV["HELLORAILS_DATABASE_PASSWORD"] %>
