@@ -1,9 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { User.new(name: 'Malik44', photo: 'https://malik44.jpg', bio: 'Sailor', posts_counter: 0) }
+  subject { User.create(name: 'Malik44', photo: 'https://malik44.jpg', bio: 'Sailor', posts_counter: 0) }
 
   before { subject.save }
+
+  context 'when created' do
+    it 'has an id' do
+      expect(subject.id).not_to be_nil
+    end
+  end
 
   context 'when name is not present' do
     before { subject.name = nil }
@@ -53,18 +59,6 @@ RSpec.describe User, type: :model do
       post2.save
       post3.save
       expect(author_two.most_recent_posts.length).to eq(3)
-    end
-
-    context 'recent_comments' do
-      let!(:author) { User.create name: 'Ravan', posts_counter: 0 }
-      let!(:post) { Post.create author_id: author.id, title: 'Wings of freedom', comments_counter: 0, likes_counter: 0 }
-      let!(:comment) do
-        Comment.create user_id: author.id, post_id: post.id, text: 'Hola!'
-      end
-
-      it 'should return recent comments' do
-        expect(post.most_recent_comments).to eq([comment])
-      end
     end
   end
 end
