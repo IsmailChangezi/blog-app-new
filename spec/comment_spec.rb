@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-
 RSpec.describe Comment, type: :model do
   describe 'after_save' do
     let(:post) { Post.create(title: 'Test Post') }
