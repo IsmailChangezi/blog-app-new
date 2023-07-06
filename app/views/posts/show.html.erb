@@ -4,6 +4,7 @@
   <title>Post <%= params[:id] %> from User <%= params[:user_id] %></title>
 </head>
 <body>
+<main>
   <div class="user_post">
   <div class="post">
     <h3><%= @post.title %> by <%= @user.name %></h3>
@@ -22,5 +23,6 @@
           <% end %>
   </div>
   </div>
+  </main>
 </body>
 </html>

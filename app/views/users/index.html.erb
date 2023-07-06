@@ -1,11 +1,11 @@
-<div class='container'>
-     <% @users.each do |user|%>
-      <div class='photo'>
-       <img image_tag ="<%= user.photo%>", style='height:50px; width: 40px ;margin-bottom:20px;' >
-      </div>
-       <div class='info'>
-        <h1><%= link_to user.name, user_path(user.id)%></h1>
-        <p>Number of Posts:<span><%= user.posts_counter%></span></p>
-       </div>
-        <%end%>
-</div>
+<main class="user-sect">
+ <div class=container-user>
+                <% @users.each do |user|%>
+                <div class='photo'>
+               <img image_tag ="<%= user.photo%>", style='height:50px; width: 40px ;margin-bottom:20px;' >
+                <h1><%= link_to user.name, user_path(user.id)%></h1>
+                <p>Number of Posts:<span><%= user.posts_counter%></span></p>
+                </div>
+                <%end%>
+ </div>
+</main>
