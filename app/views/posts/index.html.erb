@@ -28,7 +28,6 @@
           <% if @comments.length>=1 %>
           <% @comments.each do |comment| %>
             <div class="comment">
-              <p>Comments:</p>
               <p><%= comment[:user] %>: <%= comment[:comment] %></p>
             </div>
           <% end %>
