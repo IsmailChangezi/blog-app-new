@@ -4,7 +4,25 @@
   <title>Post <%= params[:id] %> from User <%= params[:user_id] %></title>
 </head>
 <body>
-  <h1>Post <%= params[:id] %> from User <%= params[:user_id] %></h1>
-  <p>Find me in app/views/posts/show.html.erb</p>
+<main>
+  <div class="user_post">
+  <div class="post">
+    <h3><%= @post.title %> by <%= @user.name %></h3>
+    <span>Comments: <%= @post.comments_counter %>, Likes: <%= @post.likes_counter %></span>
+    <p><%= @post.text %></p>
+  </div>
+  <div class="comments">
+    <% if @comments.length>=1 %>
+          <% @comments.each do |comment| %>
+            <div class="comment">
+              <p><%= comment[:user] %>: <%= comment[:comment] %></p>
+            </div>
+          <% end %>
+          <% else %>
+            <p class="nocomments">No comments yet</p>
+          <% end %>
+  </div>
+  </div>
+  </main>
 </body>
 </html>

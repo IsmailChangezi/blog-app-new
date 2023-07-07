@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :author, class_name: 'User'
   has_many :likes
-
+  has_many :comments
   after_save :post_counter_update
 
   validates :title, presence: true, length: { maximum: 250 }
