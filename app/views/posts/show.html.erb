@@ -23,6 +23,13 @@
           <% end %>
   </div>
   </div>
+   <div class='likes'>
+   <%= form_with model: Like, url: user_post_likes_path(@post.author_id, @post.id ), method: :post do |form| %>
+      <%= form.hidden_field :user_id, value: @current_user.id %>
+      <%= form.hidden_field :post_id, value: @post.id %>
+      <%= form.submit "Like" %>
+    <% end %>
+    </div>
     <div class="new_comment">
     <%= form_with(model: Comment, url: user_post_comments_path(@post.author_id, @post.id ), method: :post, local: true) do |form| %>
       <span><%= @current_user.name %>: </span>
