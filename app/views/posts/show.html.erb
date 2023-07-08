@@ -23,6 +23,14 @@
           <% end %>
   </div>
   </div>
+    <div class="new_comment">
+    <%= form_with(model: Comment, url: user_post_comments_path(@post.author_id, @post.id ), method: :post, local: true) do |form| %>
+      <span><%= @current_user.name %>: </span>
+      <%= form.text_field :text, placeholder: "Enter your comment here" %>
+      <%= form.hidden_field :user_id, value: @current_user.id %>
+      <%= form.hidden_field :post_id, value: @post.id %>
+      <%= form.submit 'Add Comment' %>
+    <% end %>
   </main>
 </body>
 </html>
