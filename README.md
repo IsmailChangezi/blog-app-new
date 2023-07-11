@@ -110,6 +110,12 @@ To run the program use command, rails server
 - GitHub: [@IsmailChangezi](https://github.com/IsmailChangezi)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/ismailchangezi/)
 
+👤 **Matee Safi**
+
+- GitHub: [@githubhandle](https://github.com/matee-safi)
+- Twitter: [@twitterhandle](https://twitter.com/matee_safi)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/matee-safi/)
+
 <p align="right"><a href="#readme-top">👆</a></p>
 
 <!-- FUTURE FEATURES -->
