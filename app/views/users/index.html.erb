@@ -1,11 +1,32 @@
-<main class="user-sect">
- <div class=container-user>
-                <% @users.each do |user|%>
-                <div class='photo'>
-               <img image_tag ="<%= user.photo%>", style='height:50px; width: 40px ;margin-bottom:20px;' >
-                <h1><%= link_to user.name, user_path(user.id)%></h1>
-                <p>Number of Posts:<span><%= user.posts_counter%></span></p>
-                </div>
-                <%end%>
- </div>
-</main>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>users</title>
+  <%= stylesheet_link_tag "styles" %>
+</head>
+<body>
+  <h1>Users list</h1>
+  <a href=<%= "/users/#{@current_user.id}/posts/new"%> >
+    <button>New Post</button>
+    </a>
+  <div class="container">
+    <%@users.each do |user|%>
+      <a href=<%= user_path(user.id)%>>
+      <div class="user">
+        <div class="user_image">
+        <% if user.photo %>
+          <img src=<%= user.photo %> alt="Profile picture">
+        <% else %>
+          <img src="no_pic.png" alt="Profile picture">
+        <% end %>
+        </div>
+        <div class="user user-info">
+          <h2><%= user.name %></h2>
+          <p>Number of posts: <%= user.posts_counter %></p>
+        </div>
+      </div>
+      </a>
+    <%end%>
+  </div>
+</body>
+</html>

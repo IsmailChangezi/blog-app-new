@@ -1,41 +1,46 @@
- <main>
- <div class=container>  
- <div class="user-show-info-container">
-   <div class='photo'>
- <img image_tag ="<%= @user.photo%>", style='height:50px; width: 40px ;margin-bottom:20px;' >
-   </div>
-   <div class='info'>
-      <h1><%=@user.name%></h1>
-     <p><strong>Number of Posts:</strong><span> <%= @user.posts_counter%></span></p>
-   </div>
-</div>
-   <div class="posts-container">
-      <% @posts.each do |post|%>
-      <div>
-        <a href=<%= "posts/#{post.id}" %>>
-      <h1><%= post.title%></h1>
-      </a>
-          <p><%= post.text%></p>
-          <div class="likes-comments">
-            <p>Likes: <%= post.likes_counter%>, </p>
-            <p>Comments: <%= post.comments_counter%></p>
-          </div>  
-      </div>
-       
-      <%end%>
-   </div>
-     <div class="comments">
-          <% if @comments.length>=1 %>
-          <% @comments.each do |comment| %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Posts from user 1</title>
+</head>
+<body>
+  <div id="user_info">
+    <div id="user_image">
+      <% if @user.photo %>
+        <img src=<%= @user.photo %> alt="User Photo">
+      <% else %>
+        <img src="no_pic.png" alt="User Photo">
+      <% end %>
+    </div>
+    <div id="user_name_and_posts">
+      <h1><%= @user.name %></h1>
+      <p>Number of posts: <%= @user.posts_counter %></p>
+    </div>
+  </div>
+  <div id="user_posts">
+    <% @posts.each do |post| %>
+      <a href=<%= user_post_path(post.author_id, post.id) %>>
+      <div class="user_post">
+        <div class="post">
+          <h3><%= post.title %></h3>
+          <p maxlength="150"><%= post.text %></p>
+          <span>Comments: <%= post.comments_counter %>, Likes: <%= post.likes_counter %></span>
+        </div>
+        <div class="comments">
+          <% if post.comments.length>=1 %>
+          <% post.comments.each do |comment| %>
             <div class="comment">
-              <p><%= comment[:user] %>: <%= comment[:comment] %></p>
+              <p><%= comment.user.name %>: <%= comment.text %></p>
             </div>
           <% end %>
           <% else %>
             <p class="nocomments">No comments yet</p>
           <% end %>
         </div>
-          <button>Pagination</button>
+      </div>
+      </a>
+    <% end %>
   </div>
-
-  </main>
+    <button>Pagination</button>
+</body>
+</html>
