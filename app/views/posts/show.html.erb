@@ -4,33 +4,32 @@
   <title>Post <%= params[:id] %> from User <%= params[:user_id] %></title>
 </head>
 <body>
-<main>
   <div class="user_post">
   <div class="post">
-    <h3><%= @post.title %> by <%= @user.name %></h3>
-    <span>Comments: <%= @post.comments_counter %>, Likes: <%= @post.likes_counter %></span>
-    <p><%= @post.text %></p>
-  </div>
-  <div class="comments">
-    <% if @comments.length>=1 %>
-          <% @comments.each do |comment| %>
-            <div class="comment">
-              <p><%= comment[:user] %>: <%= comment[:comment] %></p>
-            </div>
-          <% end %>
-          <% else %>
-            <p class="nocomments">No comments yet</p>
-          <% end %>
-  </div>
-  </div>
-   <div class='likes'>
-   <%= form_with model: Like, url: user_post_likes_path(@post.author_id, @post.id ), method: :post do |form| %>
+    <h3><%= @post.title %> by <%= @post.author.name %></h3>
+    <span>Likes: <%= @post.likes_counter %>, Comments: <%= @post.comments_counter %></span>
+    
+    <!-- likes button form -->
+    <%= form_with model: Like, url: user_post_likes_path(@post.author_id, @post.id ), method: :post do |form| %>
       <%= form.hidden_field :user_id, value: @current_user.id %>
       <%= form.hidden_field :post_id, value: @post.id %>
       <%= form.submit "Like" %>
     <% end %>
-    </div>
-    <div class="new_comment">
+    <p><%= @post.text %></p>
+  </div>
+  <div class="comments">
+    <% if @post.comments.length>=1 %>
+      <% @post.comments.each do |comment| %>
+        <div class="comment">
+          <p><%= comment.user.name %>: <%= comment.text %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="nocomments">No comments yet</p>
+    <% end %>
+  </div>
+  <!-- form for a new comment -->
+  <div class="new_comment">
     <%= form_with(model: Comment, url: user_post_comments_path(@post.author_id, @post.id ), method: :post, local: true) do |form| %>
       <span><%= @current_user.name %>: </span>
       <%= form.text_field :text, placeholder: "Enter your comment here" %>
@@ -38,6 +37,7 @@
       <%= form.hidden_field :post_id, value: @post.id %>
       <%= form.submit 'Add Comment' %>
     <% end %>
-  </main>
+  </div>
+  </div>
 </body>
 </html>

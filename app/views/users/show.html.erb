@@ -1,24 +1,42 @@
-<main>
-<div class='container'>
-<div class="user-show-info-container">
-   <div class='photo'>
- <img image_tag ="<%= @user.photo%>", style='height:50px; width: 40px ;margin-bottom:20px;' >
-   </div>
-   <div class='info'>
-      <h2><%= @user.name%>
-     <p>Number of Posts:<span> <%= @user.posts_counter%></span></p>
-   </div>
-</div>
-   <div class='bio'>
-      <h1>Bio</h1>
-      <p><%= @user.bio%></p>
-   </div>
-   <% @posts.each do |post|%>
-   <div class="posts">
-     <h1><%= post.title%></h1>
-     <p><%= post.text%></p>
-   </div>
-   <%end%>
-    <button ><%= link_to "Show All Posts", user_posts_path(@user)%></button>
-</div>
-</main>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User <%= params[:id] %></title>
+  <%= stylesheet_link_tag "styles" %>
+</head>
+<body>
+  <div class="container">
+  <div id="user_info">
+    <div class="user_image">
+      <% if @user.photo %>
+        <img src=<%= @user.photo %> alt="User Photo">
+      <% else %>
+        <img src="no_pic.png" alt="User Photo">
+      <% end %>
+    </div>
+    <div id="user_name_and_posts">
+      <h1><%= @user.name %></h1>
+      <p>Number of posts: <%= @user.posts_counter %></p>
+    </div>
+  </div>
+  <div id="bio">
+    <h3>Bio</h3>
+    <p><%= @user.bio %></p>
+  </div>
+  <div id="posts">
+    <% @posts.each do |post| %>
+    <a href=<%= user_post_path(@user.id, post.id) %>>
+      <div class="post">
+        <h3><%= post.title %></h3>
+        <p class="cropped-text"><%= post.text %></p>
+        <span>Comments: <%= post.comments_counter %>, Likes: <%= post.likes_counter %></span>
+      </div>
+    </a>
+    <% end %>
+  </div>
+  <a href=<%= user_posts_path(@user.id) %>>
+    <button>See all posts</button>
+  </a>
+  </div>
+</body>
+</html>
