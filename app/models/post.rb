@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :author, class_name: 'User'
   has_many :likes
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   has_many :most_recent_comments, -> { order(created_at: :desc).limit(5) }, class_name: 'Comment'
 

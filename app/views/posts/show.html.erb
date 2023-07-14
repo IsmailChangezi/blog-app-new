@@ -16,15 +16,22 @@
       <%= form.submit "Like" %>
     <% end %>
     <p><%= @post.text %></p>
+
+  <% if can?(:destroy, @post) %>
+  <%=  button_to 'Delete Post', user_post_path(@user, @post), method: :delete%>
+  <% end %>
   </div>
   <div class="comments">
     <% if @post.comments.length>=1 %>
       <% @post.comments.each do |comment| %>
         <div class="comment">
           <p><%= comment.user.name %>: <%= comment.text %></p>
+                  <% if can?(:destroy, comment) %>
+          <%= button_to 'Delete', user_post_comment_path(comment.post.author, comment.post, comment), method: :delete, data: { confirm: 'Are you sure you want to delete this comment?' }, class: 'btn btn-danger' %>
+        <% end %>    
+
         </div>
       <% end %>
-    <% else %>
       <p class="nocomments">No comments yet</p>
     <% end %>
   </div>
@@ -38,6 +45,7 @@
       <%= form.submit 'Add Comment' %>
     <% end %>
   </div>
+
   </div>
 </body>
 </html>

@@ -10,6 +10,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.post.comments_counter -= 1
+    @comment.post.save
+    @comment.destroy
+    redirect_to user_posts_path(@comment.user.id)
+  end
+
   private
 
   def post_params
