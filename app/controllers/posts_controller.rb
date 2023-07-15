@@ -1,26 +1,31 @@
-class PostsController < ApplicationController
-  before_action :set_current_user, only: %i[new create show]
-  before_action :authenticate_user!
-  load_and_authorize_resource
-
-  before_action :set_user
-
-  def index
-    @user = User.find_by_id(params[:user_id]) # params[:user_id] is the id of the user
-    @posts = Post.where(author_id: params[:user_id]).includes(:most_recent_comments)
+module Api
+  module V1
   end
+end
+    class Api::V1::PostsController < ApplicationController
+      before_action :set_current_user, only: %i[new create show]
+      before_action :authenticate_user!
+      load_and_authorize_resource
 
-  def show
-    @current_user = current_user
-    @post = Post.find_by_id(params[:id])
-  end
+      before_action :set_user
 
-  def new
+      def index
+      @user = User.find_by_id(params[:user_id]) # params[:user_id] is the id of the user
+      @posts = Post.where(author_id: params[:user_id]).includes(:most_recent_comments)
+      render json: posts
+      end
+
+      def show
+      @current_user = current_user
+      @post = Post.find_by_id(params[:id])
+    end
+
+    def new
     @user = current_user # params[:user_id] is the id of the user
     @post = Post.new
-  end
+    end
 
-  def create
+    def create
     # user = current_user
     @post = Post.new(post_params)
     return unless @post.save
@@ -47,7 +52,7 @@ class PostsController < ApplicationController
     @current_user = current_user
   end
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-end
+      def set_user
+      @user = User.find(params[:user_id])
+      end
+    end
