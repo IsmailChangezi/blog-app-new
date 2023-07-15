@@ -1,17 +1,12 @@
-module Api
-  module V1
-  end
-end
-    class Api::V1::CommentsController < ApplicationController
+
+    class CommentsController < ApplicationController
     def create
     @post = Post.find(params[:post_id])
     @comment = Comment.new(post_params)
     if @comment.save
       redirect_to user_post_path(@post.author_id, @post.id)
-      render json: comment, status: :created
     else
       redirect_to user_post_comment_path(@post.author_id, @post.id)
-      render json: comment.errors, status: :unprocessable_entity
     end
   end
 

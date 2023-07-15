@@ -1,8 +1,5 @@
-module Api
-  module V1
-  end
-end
-    class Api::V1::PostsController < ApplicationController
+
+    class PostsController < ApplicationController
       before_action :set_current_user, only: %i[new create show]
       before_action :authenticate_user!
       load_and_authorize_resource
@@ -12,7 +9,6 @@ end
       def index
       @user = User.find_by_id(params[:user_id]) # params[:user_id] is the id of the user
       @posts = Post.where(author_id: params[:user_id]).includes(:most_recent_comments)
-      render json: posts
       end
 
       def show

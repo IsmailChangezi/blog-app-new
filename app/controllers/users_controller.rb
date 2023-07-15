@@ -1,6 +1,5 @@
-module Api
-  module V1
-    class Api::V1::UsersController < ApplicationController
+
+    class UsersController < ApplicationController
     def index
     @users = User.all
     @current_user = current_user
@@ -10,7 +9,6 @@ module Api
     @user = User.find_by_id(params[:id])
     @posts = @user.most_recent_posts
     @posts = Post.where(author_id: @user.id)
-    render json: user
    end
 
   # def new
@@ -26,5 +24,3 @@ module Api
   #  end
   # end
     end
-  end
-end
