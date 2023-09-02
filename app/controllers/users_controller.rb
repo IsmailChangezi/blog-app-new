@@ -1,13 +1,15 @@
-class UsersController < ApplicationController
-  def index
+
+    class UsersController < ApplicationController
+    def index
     @users = User.all
     @current_user = current_user
-  end
+    end
 
-  def show
+    def show
     @user = User.find_by_id(params[:id])
     @posts = @user.most_recent_posts
-  end
+    @posts = Post.where(author_id: @user.id)
+   end
 
   # def new
   #  @user = User.new
@@ -21,4 +23,4 @@ class UsersController < ApplicationController
   #    render :new
   #  end
   # end
-end
+    end
